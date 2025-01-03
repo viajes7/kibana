@@ -15,6 +15,8 @@ export type TestSubjects =
   | 'dataStreamsEmptyPromptTemplateLink'
   | 'dataStreamTable'
   | 'deleteDataStreamsButton'
+  | 'bulkEditDataRetentionButton'
+  | 'dataStreamActionsPopoverButton'
   | 'deleteDataStreamButton'
   | 'deleteSystemTemplateCallOut'
   | 'deleteTemplateButton'

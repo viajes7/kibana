@@ -1183,7 +1183,7 @@ describe('Data Streams tab', () => {
         ]);
       });
 
-      test('displays/hides delete action depending on data streams privileges', async () => {
+      test('displays/hides manage actions depending on data streams privileges', async () => {
         const {
           actions: { selectDataStream, clickManageDataStreamsButton },
           find,
@@ -1192,14 +1192,25 @@ describe('Data Streams tab', () => {
         selectDataStream('dataStreamNoDelete', true);
         clickManageDataStreamsButton();
         expect(find('deleteDataStreamsButton').exists()).toBeFalsy();
+        expect(find('bulkEditDataRetentionButton').exists()).toBeTruthy();
 
         selectDataStream('dataStreamWithDelete', true);
         clickManageDataStreamsButton();
         expect(find('deleteDataStreamsButton').exists()).toBeFalsy();
+        expect(find('bulkEditDataRetentionButton').exists()).toBeTruthy();
 
         selectDataStream('dataStreamNoDelete', false);
+        selectDataStream('dataStreamNoEditRetention', true);
+        expect(find('deleteDataStreamsButton').exists()).toBeTruthy();
+        expect(find('bulkEditDataRetentionButton').exists()).toBeFalsy();
+
+        selectDataStream('dataStreamNoEditRetention', false);
         clickManageDataStreamsButton();
         expect(find('deleteDataStreamsButton').exists()).toBeTruthy();
+        expect(find('bulkEditDataRetentionButton').exists()).toBeTruthy();
+
+        selectDataStream('dataStreamNoPermissions', true);
+        expect(find('dataStreamActionsPopoverButton').exists()).toBeFalsy();
       });
 
       test('hides delete button in detail panel', async () => {
